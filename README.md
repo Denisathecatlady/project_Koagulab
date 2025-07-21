@@ -1,22 +1,83 @@
-![Coders-Lab-1920px-no-background](https://user-images.githubusercontent.com/30623667/104709394-2cabee80-571f-11eb-9518-ea6a794e558e.png)
+# KoaguLab
 
-# Important information
+KoaguLab je jednoduchá laboratorní aplikace pro správu pacientů, vzorků a laboratorních výsledků. Projekt vznikl jako závěrečný úkol v rámci kurzu Python/Django a slouží jako ukázka webové aplikace určené pro menší zdravotnická zařízení nebo laboratorní týmy.
 
-Read the following guidelines before doing the exercises.
+---
 
-## How do you begin?
+## Funkce
 
-1. [*Fork*](https://guides.github.com/activities/forking/) the repository containing exercises.
-2. Clone the repository onto your computer using the command: `git clone repository_address`.
-   You will find the address of the repository by pressing "Clone or download" button on its webpage.
-3. Complete the exercises and commit changes to your repository using the commands below.
-   `git add filename` will add a single file which you have changed.
-   If you want to add all the changed files at once, use `git add .`.
-   Remember that the fullstop (dot) at the end of this command is important!
-   Next, commit changes using `git commit -m "description_of_changes"`.
-4. Push changes to your repository on GitHub by typing: `git push origin main`.
-5. Create a [*pull request*](https://help.github.com/articles/creating-a-pull-request) to the original repository when you have finished all the exercises.
+- **Správa pacientů:** Přehledné ukládání údajů o pacientech včetně rodného čísla, pojišťovny a poznámky.
+- **Evidence vzorků:** Každý pacient může mít více odebraných vzorků, vzorkům je automaticky generován kód.
+- **Zadávání výsledků:** U každého vzorku lze zadávat výsledky různých laboratorních testů (např. APTT, D-dimer, PT aj.) včetně referenčních rozmezí.
+- **Přehled typů testů:** Správce může přidávat nové typy testů a nastavovat jejich jednotky a referenční hodnoty.
+- **Registrace a přihlášení uživatelů:** Každý uživatel má své vlastní přihlašovací údaje, možnost registrace nového účtu.
+- **Admin rozhraní:** Pro správu všech dat lze využít i vestavěné Django admin rozhraní.
 
-### Do the exercises in appropriate files.
+---
 
-**The repository with the exercises will be removed 2 weeks after the end of the course. This will result in the removal of all forks made from this repository.**
+## Jak spustit projekt
+
+1. **Klonuj repozitář:**
+    ```
+    git clone <adresa-repozitáře>
+    cd <název-složky>
+    ```
+
+2. **Vytvoř a aktivuj virtuální prostředí:**
+    ```
+    python -m venv .venv
+    source .venv/bin/activate      # Linux/macOS
+    .venv\Scripts\activate         # Windows
+    ```
+
+3. **Nainstaluj závislosti:**
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. **Migrace databáze:**
+    ```
+    python manage.py migrate
+    ```
+
+5. **Vytvoření admin účtu:**
+    ```
+    python manage.py createsuperuser
+    ```
+
+6. **Spuštění serveru:**
+    ```
+    python manage.py runserver
+    ```
+
+---
+
+## Struktura aplikace
+
+- `samples/` – hlavní aplikace s modely, views a formuláři pro pacienty, vzorky a testy.
+- `templates/` – složka se šablonami pro všechny stránky.
+- `static/` – Bootstrap a případně další statické soubory.
+
+---
+
+## Přihlášení do administrace
+
+- Adresa: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+- Použij vytvořený admin účet (viz výše).
+- V administraci lze spravovat všechny tabulky a data.
+
+---
+
+## Výchozí uživatelé a data
+
+- Můžeš si v adminu nebo v aplikaci přidat libovolné pacienty, vzorky i typy testů.
+- Pro testování lze vkládat zkušební data přímo přes webové formuláře.
+
+---
+
+## Ukázka typických rodných čísel (pro testovací pacienty):
+
+- 9001011235, 8902034567, 9206307890, 8512254321, 9704056789, ...
+- Vždy použij platný formát (9 nebo 10 číslic, může být i s lomítkem: `900101/1235`).
+
+---
