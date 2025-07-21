@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail vzorku – {{ sample.sample_code }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+    <h1 class="h4 mb-4">Detail vzorku – {{ sample.sample_code }}</h1>
+
+    <div class="mb-3">
+        <p><strong>Pacient:</strong> {{ sample.patient }}</p>
+        <p><strong>Datum odběru:</strong> {{ sample.collection_date|date:"d.m.Y H:i" }}</p>
+    </div>
+
+    <h2 class="h5">Výsledky testů:</h2>
+    <ul class="list-group mb-3">
+        {% for item in results_with_reference %}
+            <li class="list-group-item">
+                <strong>{{ item.result.test_type.name }}:</strong>
+                {{ item.result.value }}
+                {% if item.reference %}
+                    {{ item.reference.unit }}
+                    <span class="text-muted small">
+                        (referenční rozsah:
+                        {% if item.reference.normal_time_min and item.reference.normal_time_max %}
+                            {{ item.reference.normal_time_min }}–{{ item.reference.normal_time_max }} {{ item.reference.unit }}
+                        {% elif item.reference.min is not None and item.reference.max is not None %}
+                            {{ item.reference.min }}–{{ item.reference.max }} {{ item.reference.unit }}
+                        {% elif item.reference.max is not None %}
+                            ≤ {{ item.reference.max }} {{ item.reference.unit }}
+                        {% else %}
+                            –
+                        {% endif %}
+                        )
+                    </span>
+                {% else %}
+                    {{ item.result.test_type.unit }}
+                {% endif %}
+                {% if item.result.note %}
+                    <br><span class="text-muted small">{{ item.result.note }}</span>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">Žádné výsledky testů.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="mb-3">
+        <a href="{% url 'add_test_result' sample.id %}" class="btn btn-primary">Přidat výsledek testu</a>
+        <a href="{% url 'patient_detail' sample.patient.id %}" class="btn btn-secondary ms-2">Zpět na pacienta</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
