@@ -1,6 +1,6 @@
 # KoaguLab
 
-KoaguLab je jednoduchá laboratorní aplikace pro správu pacientů, vzorků a laboratorních výsledků. Projekt vznikl jako závěrečný úkol v rámci kurzu Python/Django.
+KoaguLab je jednoduchá laboratorní aplikace pro správu pacientů, vzorků a laboratorních výsledků. Projekt vznikl jako závěrečný úkol v rámci kurzu Python Backend Developer.
 
 ---
 
